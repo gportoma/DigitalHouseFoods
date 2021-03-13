@@ -7,6 +7,6 @@ import com.digitalhouse.digitalhousefoods.R
 class PlateScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tela_restaurante)
+        setContentView(R.layout.plate_details_screen)
     }
 }

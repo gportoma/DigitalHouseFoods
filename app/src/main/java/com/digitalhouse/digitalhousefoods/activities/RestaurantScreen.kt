@@ -17,22 +17,25 @@ class RestaurantScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tela_restaurante)
-        val plates = getPlates()
-        val adapter = PlateAdapter(plates)
-
-        recyclerPlate.layoutManager = GridLayoutManager(this,2)
-        recyclerPlate.adapter = adapter
-        recyclerPlate.isNestedScrollingEnabled
+        setContentView(R.layout.restaurant_screen)
+        setupRecyclerView()
     }
 
     private fun getPlates(): MutableList<Plate> {
         val plates = mutableListOf<Plate>()
 
-        for (pla in 0..15){
+        for (pla in 0..15) {
             plates.add(Plate("PRATO $pla"))
         }
         return plates
+    }
+
+    private fun setupRecyclerView() {
+        val plates = getPlates()
+        val adapter = PlateAdapter(plates, this)
+        recyclerPlate.layoutManager = GridLayoutManager(this, 2)
+        recyclerPlate.adapter = adapter
+        recyclerPlate.isNestedScrollingEnabled
     }
 }
 

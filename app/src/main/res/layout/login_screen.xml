@@ -7,7 +7,7 @@
     tools:context=".activities.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_tela_login"
+        android:id="@+id/tb_login_screen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/azul_principal"
@@ -23,7 +23,7 @@
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_tela_login">
+        app:layout_constraintTop_toBottomOf="@+id/tb_login_screen">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"

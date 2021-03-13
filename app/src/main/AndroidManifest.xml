@@ -20,6 +20,7 @@
         <activity android:name=".activities.HomeScreen"/>
         <activity android:name=".activities.RestaurantScreen"/>
         <activity android:name=".activities.PlateScreen"/>
+
     </application>
 
 </manifest>

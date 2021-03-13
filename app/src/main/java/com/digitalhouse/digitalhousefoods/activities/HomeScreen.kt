@@ -1,7 +1,11 @@
 package com.digitalhouse.digitalhousefoods.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.digitalhousefoods.R
@@ -13,15 +17,8 @@ class HomeScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tela_inicio)
-        val restaurants = getRestaurants()
-        val adapter = RestaurantAdpater(restaurants)
-        recyclerRestaurant.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL, false
-        )
-        recyclerRestaurant.adapter = adapter
-
+        setContentView(R.layout.home_screen)
+        setupRecyclerView()
     }
 
     private fun getRestaurants(): MutableList<Restaurant> {
@@ -32,4 +29,16 @@ class HomeScreen : AppCompatActivity() {
         }
         return restaurants
     }
+
+    private fun setupRecyclerView() {
+        val restaurants = getRestaurants()
+        val adapter = RestaurantAdpater(restaurants, this)
+        recyclerRestaurant.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerRestaurant.adapter = adapter
+    }
+
+    override fun onBackPressed() {
+    }
 }
+
