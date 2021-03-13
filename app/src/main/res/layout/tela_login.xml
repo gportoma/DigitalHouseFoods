@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Email"
+            android:inputType="text"
             android:textColor="@color/azul_principal"
             android:background="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -41,6 +42,7 @@
         android:layout_marginTop="8dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:passwordToggleEnabled="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_email">
 
@@ -49,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:inputType="textPassword"
             android:hint="Senha"
             android:textColor="@color/azul_principal" />
     </com.google.android.material.textfield.TextInputLayout>

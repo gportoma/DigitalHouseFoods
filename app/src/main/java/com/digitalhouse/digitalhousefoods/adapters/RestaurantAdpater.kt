@@ -15,7 +15,8 @@ class RestaurantAdpater(val restaurants:MutableList<Restaurant>):RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val nameRestaurant = holder.tvRestaurant
+        nameRestaurant.text = restaurants[position].nome
     }
 
     override fun getItemCount(): Int {

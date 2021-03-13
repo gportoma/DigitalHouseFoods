@@ -10,12 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DigitalHouseFoods">
         <activity android:name=".activities.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.HomeScreen"/>
+        <activity android:name=".activities.RestaurantScreen"/>
+        <activity android:name=".activities.PlateScreen"/>
     </application>
 
 </manifest>

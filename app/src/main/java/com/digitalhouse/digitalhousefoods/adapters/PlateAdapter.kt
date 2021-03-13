@@ -8,7 +8,7 @@ import com.digitalhouse.digitalhousefoods.holders.PlateViewHolder
 import com.digitalhouse.digitalhousefoods.holders.RestaurantViewHolder
 import com.digitalhouse.digitalhousefoods.model.Plate
 
-class PlateAdapter(val pratos: MutableList<Plate>):RecyclerView.Adapter<PlateViewHolder>() {
+class PlateAdapter(val plates: MutableList<Plate>) : RecyclerView.Adapter<PlateViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlateViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.prato_item, parent, false)
@@ -16,10 +16,11 @@ class PlateAdapter(val pratos: MutableList<Plate>):RecyclerView.Adapter<PlateVie
     }
 
     override fun onBindViewHolder(holder: PlateViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val namePlate = holder.tvPlate
+        namePlate.text = plates[position].nome
     }
 
     override fun getItemCount(): Int {
-        return pratos.size
+        return plates.size
     }
 }
