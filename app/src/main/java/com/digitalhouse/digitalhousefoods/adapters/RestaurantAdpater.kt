@@ -3,17 +3,19 @@ package com.digitalhouse.digitalhousefoods.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.digitalhousefoods.R
-import com.digitalhouse.digitalhousefoods.activities.HomeScreen
 import com.digitalhouse.digitalhousefoods.activities.RestaurantScreen
 import com.digitalhouse.digitalhousefoods.holders.RestaurantViewHolder
+import com.digitalhouse.digitalhousefoods.model.Plate
 import com.digitalhouse.digitalhousefoods.model.Restaurant
+import java.util.ArrayList
 
-class RestaurantAdpater(val restaurants: MutableList<Restaurant>, var context: Context) :
+class RestaurantAdpater(val restaurants: List<Restaurant>) :
     RecyclerView.Adapter<RestaurantViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,15 +25,24 @@ class RestaurantAdpater(val restaurants: MutableList<Restaurant>, var context: C
 
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val nameRestaurant = holder.tvRestaurant
+        val imageRestaurant = holder.ivRestaurant
+        val addresRestaurant = holder.tvRestaurantAdress
+        val openingRestaurant = holder.tvOpeningHours
+
         nameRestaurant.text = restaurants[position].nome
+        imageRestaurant.setImageResource(restaurants[position].image)
+        addresRestaurant.text = restaurants[position].address
+        openingRestaurant.text = restaurants[position].opening
 
         holder.cvRestaurant.setOnClickListener {
-            val intent = Intent(context, RestaurantScreen::class.java)
-            startActivity(context, intent, Bundle())
+            val intent = Intent(it.context, RestaurantScreen::class.java)
+            val plateArray:ArrayList<Plate> = ArrayList(restaurants[position].plates)
+            intent.putExtra("NAME",restaurants[position].nome)
+            intent.putExtra("IMAGE",restaurants[position].image)
+            intent.putExtra("PLATE",plateArray)
+            it.context.startActivity(intent)
         }
     }
 
-    override fun getItemCount(): Int {
-        return restaurants.size
-    }
+    override fun getItemCount() = restaurants.size
 }

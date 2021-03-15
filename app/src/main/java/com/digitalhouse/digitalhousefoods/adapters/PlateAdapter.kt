@@ -14,7 +14,7 @@ import com.digitalhouse.digitalhousefoods.holders.PlateViewHolder
 import com.digitalhouse.digitalhousefoods.holders.RestaurantViewHolder
 import com.digitalhouse.digitalhousefoods.model.Plate
 
-class PlateAdapter(val plates: MutableList<Plate>, var context: Context) :
+class PlateAdapter(val plates: List<Plate>) :
     RecyclerView.Adapter<PlateViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlateViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,11 +24,19 @@ class PlateAdapter(val plates: MutableList<Plate>, var context: Context) :
 
     override fun onBindViewHolder(holder: PlateViewHolder, position: Int) {
         val namePlate = holder.tvPlate
-        namePlate.text = plates[position].nome
+        val imagePlate = holder.ivPlate
+
+        namePlate.text = plates[position].name
+        imagePlate.setImageResource(plates[position].image)
+
         holder.cvPlate.setOnClickListener {
-            val intent = Intent(context, PlateScreen::class.java)
-            ContextCompat.startActivity(context, intent, Bundle())
+            val intent = Intent(it.context, PlateScreen::class.java)
+            intent.putExtra("NAME_PLATE",plates[position].name)
+            intent.putExtra("IMAGE_PLATE",plates[position].image)
+            intent.putExtra("DESCRIPTION_PLATE",plates[position].description)
+            it.context.startActivity(intent)
         }
     }
-    override fun getItemCount()= plates.size
+
+    override fun getItemCount() = plates.size
 }

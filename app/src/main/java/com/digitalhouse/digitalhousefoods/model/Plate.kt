@@ -1,3 +1,6 @@
 package com.digitalhouse.digitalhousefoods.model
 
-data class Plate(val nome:String)
+import java.io.Serializable
+
+
+data class Plate(val name: String, val image: Int, val description: String) : Serializable
