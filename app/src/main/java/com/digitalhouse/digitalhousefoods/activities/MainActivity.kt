@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.digitalhousefoods.R
+import com.digitalhouse.digitalhousefoods.viewModel.MainViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlin.math.log
@@ -16,37 +18,59 @@ class MainActivity : AppCompatActivity() {
     private val fieldInputTextEmail by lazy { findViewById<TextInputEditText>(R.id.et_email) }
     private val fieldInputTextPassword by lazy { findViewById<TextInputEditText>(R.id.et_password) }
 
+    private lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_screen)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        configureValidationOfFields()
+        configureClicks()
+    }
+
+    private fun configureClicks() {
         btLogin.setOnClickListener {
             login()
+        }
+    }
+
+    private fun configureValidationOfFields() {
+        viewModel.fieldEmail.observe(this) { emailValid ->
+            if (emailValid) {
+                fieldLayoutEmail.error = null
+            } else {
+                fieldLayoutEmail.error = "Obrigatório"
+            }
+
+            navigateIfValid()
+        }
+
+        viewModel.fieldPassword.observe(this) { passValid ->
+            if (passValid) {
+                fieldLayoutPassword.error = null
+            } else {
+                fieldLayoutPassword.error = "Obrigatório"
+            }
+
+            navigateIfValid()
+        }
+    }
+
+    private fun navigateIfValid() {
+        if (viewModel.fieldEmail.value == true
+            && viewModel.fieldPassword.value == true
+        ) {
+            val intent = Intent(this, HomeScreen::class.java)
+            startActivity(intent)
         }
     }
 
     private fun login() {
         val email = fieldInputTextEmail.text.toString()
         val password = fieldInputTextPassword.text.toString()
-        val intent = Intent(this, HomeScreen::class.java)
 
-        when {
-            email.isBlank() && password.isBlank() -> {
-                fieldLayoutEmail.error = "Obrigatório"
-                fieldLayoutPassword.error = "Obrigatório"
-            }
-            email.isBlank() -> {
-                fieldLayoutEmail.error = "Obrigatório"
-                fieldLayoutPassword.error = null
-            }
-            password.isBlank() -> {
-                fieldLayoutPassword.error = "Obrigatório"
-                fieldLayoutEmail.error = null
-            }
-            else -> {
-                fieldLayoutEmail.error = null
-                fieldLayoutPassword.error = null
-                startActivity(intent)
-            }
-        }
+        viewModel.validateEntryFiels(email, password)
     }
 }

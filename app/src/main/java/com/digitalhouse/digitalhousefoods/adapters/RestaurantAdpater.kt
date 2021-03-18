@@ -15,7 +15,7 @@ import com.digitalhouse.digitalhousefoods.model.Plate
 import com.digitalhouse.digitalhousefoods.model.Restaurant
 import java.util.ArrayList
 
-class RestaurantAdpater(val restaurants: List<Restaurant>) :
+class RestaurantAdpater(val restaurants: List<Restaurant>, val callback: (Restaurant) -> Unit) :
     RecyclerView.Adapter<RestaurantViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -35,14 +35,13 @@ class RestaurantAdpater(val restaurants: List<Restaurant>) :
         openingRestaurant.text = restaurants[position].opening
 
         holder.cvRestaurant.setOnClickListener {
-            val intent = Intent(it.context, RestaurantScreen::class.java)
-            val plateArray:ArrayList<Plate> = ArrayList(restaurants[position].plates)
-            intent.putExtra("NAME",restaurants[position].nome)
-            intent.putExtra("IMAGE",restaurants[position].image)
-            intent.putExtra("PLATE",plateArray)
-            it.context.startActivity(intent)
+            callback(restaurants[position])
         }
     }
 
     override fun getItemCount() = restaurants.size
+
+    fun addMoreItens(restaurants: List<Restaurant>?) {
+
+    }
 }
